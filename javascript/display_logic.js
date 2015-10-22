@@ -16,7 +16,7 @@
 		},
 
 		getFieldName: function() {
-			return this.attr('id');
+			return this.attr('id').replace(new RegExp('^' + this.closest('form').attr('id') + '_(.*)_Holder$'), '$1');
 		},
 
 
@@ -95,7 +95,7 @@
 
 			masters = this.getMasters();			
 			for(m in masters) {				
-				var master = this.closest('form').find(this.escapeSelector('#'+masters[m]));
+				var master = this.closest('form').find(this.escapeSelector('div.'+masters[m]));
 				if(!master.is('.readonly')) allReadonly = false;
 
 				master.addClass("display-logic-master");
@@ -232,8 +232,8 @@
 			var listeners = [];
 			this.closest("form").find('.display-logic').each(function() {
 				masters = $(this).getMasters();
-				for(m in  masters) {					
-					if(masters[m] == self.attr('id')) {
+				for(m in  masters) {
+					if(self.hasClass(masters[m])) {
 						listeners.push($(this)[0]);
 						break;
 					}
