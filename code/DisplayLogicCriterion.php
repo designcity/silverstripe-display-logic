@@ -77,9 +77,9 @@ class DisplayLogicCriterion extends Object {
 	 * Creates a JavaScript-readable representation of this criterion
 	 * @return string
 	 */
-	public function toScript() {		
+	public function toScript() {
 		return sprintf(
-			"this.findHolder('%s').evaluate%s('%s')",
+			"this.closest('form').find('[name=\"%s\"]').parents('div.field').evaluate{$this->operator}('%s')",
 			$this->master,
 			$this->operator,
 			addslashes($this->value)
